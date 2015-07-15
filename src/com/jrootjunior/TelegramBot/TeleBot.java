@@ -17,7 +17,7 @@ public class TeleBot {
             User userBot = bot.getMe();
             System.out.println("Connected. Bot Name: '" +
                     userBot.getFirstName() + "' @" + userBot.getUsername() + "(" + String.valueOf(userBot.getId()) + ")");
-            bot.getUpdates();
+            bot.runUpdate();
         }
     }
 }

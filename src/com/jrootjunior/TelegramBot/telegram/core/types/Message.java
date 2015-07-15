@@ -65,7 +65,7 @@ public class Message {
             }
         }
 
-        System.out.println(data);
+        //System.out.println(data);
     }
 
     public int getMessageId() {

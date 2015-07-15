@@ -1,14 +1,16 @@
 package com.jrootjunior.TelegramBot.telegram;
 
 import com.goebl.david.Webb;
+import com.jrootjunior.TelegramBot.telegram.core.Listener;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.jrootjunior.TelegramBot.telegram.core.constants.CFields;
 import com.jrootjunior.TelegramBot.telegram.core.types.Message;
 import com.jrootjunior.TelegramBot.telegram.core.types.Update;
 import com.jrootjunior.TelegramBot.telegram.core.types.User;
 import com.jrootjunior.TelegramBot.telegram.core.types.UserProfilePhotos;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -180,5 +182,11 @@ public class Bot {
 
     public UserProfilePhotos getUserProfilePhotos() {
         return null;
+    }
+
+    public void runUpdate() {
+        Listener listener = new Listener(this);
+        listener.setUpdateTimeout(3000);
+        listener.run();
     }
 }
