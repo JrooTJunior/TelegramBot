@@ -1,10 +1,15 @@
 package com.jrootjunior.TelegramBot.telegram.core.types;
+import com.jrootjunior.TelegramBot.telegram.core.constants.CFields;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Message {
+    private JSONObject data;
+
     private int messageId;
     private User from;
     private int date;
-    private Class chat;
+    private Chat chat;
     private User forvardFrom;
     private int forwardDate;
     private Message replyToMessage;
@@ -23,8 +28,44 @@ public class Message {
     private boolean deleteChatPhoto;
     private boolean groupChatCreated;
 
-    public Message() {
+    public Message(JSONObject data) throws JSONException {
+        this.data = data;
 
+        if (data.has(CFields.MESSAGE_ID)) {
+            messageId = data.getInt(CFields.MESSAGE_ID);
+        }
+
+        if (data.has(CFields.FROM)) {
+            from = new User(data.getJSONObject(CFields.FROM));
+        }
+
+        if (data.has(CFields.CHAT)) {
+            JSONObject chatObject = data.getJSONObject(CFields.CHAT);
+            if (chatObject.has(CFields.TITLE)) {
+                chat = new GroupChat(chatObject);
+            }
+
+            if (chatObject.has(CFields.FIRST_NAME)) {
+                chat = new User(chatObject);
+            }
+            //TODO
+//            if (chat instanceof User) {
+//                System.out.println("User");
+//                User u = (User) chat;
+//                System.out.println(u.getUsername());
+//            }
+//
+//            if (chat instanceof GroupChat) {
+//                System.out.println("Group");
+//                GroupChat g = (GroupChat) chat;
+//                System.out.println(g.getTitle());
+//            }
+            if (data.has(CFields.TEXT)) {
+                text = data.getString(CFields.TEXT);
+            }
+        }
+
+        System.out.println(data);
     }
 
     public int getMessageId() {
@@ -39,7 +80,7 @@ public class Message {
         return date;
     }
 
-    public Class getChat() {
+    public Chat getChat() {
         return chat;
     }
 
@@ -109,5 +150,10 @@ public class Message {
 
     public boolean isGroupChatCreated() {
         return groupChatCreated;
+    }
+
+    @Override
+    public String toString() {
+        return data.toString();
     }
 }

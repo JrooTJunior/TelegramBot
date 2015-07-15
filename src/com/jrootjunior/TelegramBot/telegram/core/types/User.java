@@ -4,7 +4,7 @@ import com.jrootjunior.TelegramBot.telegram.core.constants.CFields;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class User {
+public class User extends Chat {
     private JSONObject data;
 
     private int id;
